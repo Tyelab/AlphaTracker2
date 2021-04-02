@@ -32,7 +32,7 @@ else:
 
 #opt.nThreads = 6
 #opt.loadModel = '/home/npadilla/Documents/Aneesh/test_test/duc_se.pth'
-opt.loadModel = r'C:\Users\AneeshBal\Desktop\toWindows\duc_se.pth'
+opt.loadModel = r'C:\Users\hali\Desktop\alphasave\duc_se.pth'
 #opt.trainBatch = 10
 #opt.validBatch=32
 #opt.LR = 1e-4   
