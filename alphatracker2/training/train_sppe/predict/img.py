@@ -6,6 +6,7 @@
 import numpy as np
 import torch
 import scipy.misc
+from matplotlib.image import imread
 from torchsample.transforms import SpecialCrop, Pad
 import torch.nn.functional as F
 import cv2
@@ -38,8 +39,8 @@ def torch_to_im(img):
 def load_image(img_path):
     # H x W x C => C x H x W
     # print(img_path)
-    return im_to_torch(scipy.misc.imread(img_path, mode='RGB'))
-    #return im_to_torch(io.imread(img_path, mode='RGB'))
+    #return im_to_torch(scipy.misc.imread(img_path, mode='RGB'))
+    return im_to_torch(imread(img_path, format='RGB'))
 
 
 def to_numpy(tensor):
