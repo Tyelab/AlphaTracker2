@@ -17,6 +17,7 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
 #### 4. If no errors, yay! It is installed. Now, `cd` into a random directory that is not anywhere near the `AlphaTracker2` repo, and then do the following:
    
    `python`
+   
    `import alphatracker2 as at2`
    
    You will see some PyTorch print statements pop up. If no errors, yay!
@@ -66,6 +67,7 @@ Train object detector: `at2.train_object_detector(expname, model_type='yolov5s',
 ##### 6. Inference/Tracking:
 
 `vidpath = 'path/to/video.mp4'`
+
 `results, runtime = at2.predict(vidpath, num_parts, experiment_name=expname)` 
 
 note, calling this function requires a path to the video, and the experiment name will utilize the most recent model trained for both YOLO and sppe. 
