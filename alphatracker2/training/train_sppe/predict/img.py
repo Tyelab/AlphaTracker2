@@ -39,6 +39,7 @@ def load_image(img_path):
     # H x W x C => C x H x W
     # print(img_path)
     return im_to_torch(scipy.misc.imread(img_path, mode='RGB'))
+    #return im_to_torch(io.imread(img_path, mode='RGB'))
 
 
 def to_numpy(tensor):
