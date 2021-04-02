@@ -193,19 +193,19 @@ def main(full_exp_path, weights_save_path, model_type='mobilenet', epochs=300, b
     
     if model_type=='senet_101':
         print('using pretrained')
-        if opt.loadModel:
-            print('Loading Model from {}'.format(opt.loadModel))
-            current_model_weight = m.state_dict()
-            #weight_save = torch.load(opt.loadModel)
-            weight_save = torch.load(opt.loadModel, map_location=torch.device('cpu'))
-            weight_save_changed = {}
-            for k in weight_save:
-                if 'conv_out.weight' in k or 'conv_out.bias' in k:
-                    print(k,'not used')
-                    continue
-                weight_save_changed[k]= weight_save[k]
-            current_model_weight.update(weight_save_changed)
-            m.load_state_dict(current_model_weight)
+        #if opt.loadModel:
+        #    print('Loading Model from {}'.format(opt.loadModel))
+        #    current_model_weight = m.state_dict()
+        #    #weight_save = torch.load(opt.loadModel)
+        #    weight_save = torch.load(opt.loadModel, map_location=torch.device('cpu'))
+        #    weight_save_changed = {}
+        #    for k in weight_save:
+        #        if 'conv_out.weight' in k or 'conv_out.bias' in k:
+        #            print(k,'not used')
+        #            continue
+        #        weight_save_changed[k]= weight_save[k]
+        #    current_model_weight.update(weight_save_changed)
+        #    m.load_state_dict(current_model_weight)
    
    
    
