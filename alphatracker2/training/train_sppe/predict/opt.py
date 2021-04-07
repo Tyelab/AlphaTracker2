@@ -81,4 +81,4 @@ parser.add_argument('--hmGauss', default=1, type=int,
                     help='Heatmap gaussian size')
 
 
-opt = parser.parse_args()
+opt = parser.parse_args([])
