@@ -62,7 +62,7 @@ Train pose estimator: `at2.train_pose_estimator(expname, epochs=50, nThreads=0)`
 
 note, this will train from scratch so don't be surprised with low accuracy. to use pretrained model, we will have to figure out where to store it and download it when the train function is called
 
-Train object detector: `at2.train_object_detector(expname, model_type='yolov5s', epochs=200)
+Train object detector: `at2.train_object_detector(expname, model_type='yolov5s', epochs=200)`
 
 ##### 6. Inference/Tracking:
 
