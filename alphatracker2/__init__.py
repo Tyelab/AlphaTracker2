@@ -34,5 +34,7 @@ from alphatracker2.Train_beta import train_pose_estimator
 
 from alphatracker2.inference.Infer import predict
 from alphatracker2.inference.Infer import track
+from alphatracker2.inference.Infer import predict_and_track
+
 from alphatracker2.inference.Show import show_tracked
 from alphatracker2.inference.Stream import real_time_tracking
