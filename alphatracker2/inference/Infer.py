@@ -33,7 +33,9 @@ def getTime(time1=0):
         interval = time.time() - time1
         return time.time(), interval
 
-def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, detector_input='', estimator_input='', save=False):
+def predict(video_path, nClasses, experiment_name='', size_value=640, img_factor=1, conf=0.05, iou=0.6,
+            start=0, end=10000000, detector_input='', estimator_input='', save=False,
+            best_or_last='best'):
 
     ''' Main inference steps to generate un-tracked predictions
     
@@ -72,7 +74,7 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
             
                   
         else:
-            detector_full_path = os.path.join(detector_path, 'exp', 'weights', 'best.pt')
+            detector_full_path = os.path.join(detector_path, 'exp', 'weights', '{}.pt'.format(best_or_last))
             
             
         print("Using object detector: {}".format(detector_full_path))
@@ -85,7 +87,7 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
         
         
         if len(estimator_files) > 1:
-            estimator_files = estimator_files[1:]
+            estimator_files = estimator_files[1:]; print(estimator_files)
             estimator_full_path = os.path.join(estimator_path, estimator_files[np.argmax([int(o[3:]) for o in estimator_files])])
             estimator_type = os.listdir(estimator_full_path)[0].split('.')[0]
             
@@ -96,7 +98,7 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
             estimator_full_path = os.path.join(estimator_path, 'exp')
             estimator_type = os.listdir(estimator_full_path)[0].split('.')[0]
             
-            estimator_full_path = os.path.join(estimator_full_path, '{}.best.pkl'.format(estimator_type))
+            estimator_full_path = os.path.join(estimator_full_path, '{}.{}.pkl'.format(estimator_type, best_or_last))
             
         print("Using pose estimator: {}".format(estimator_full_path))
             
@@ -114,7 +116,7 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
         
     if estimator_input:
         if type(estimator_input) == str:
-            estimator_type = estimator.split('.')[0].split(os.sep)[-1]
+            estimator_type = estimator_input.split('.')[0].split(os.sep)[-1]
             estimator = LoadModels.pose_estimator(nClasses, estimator_type, estimator_input)
             
         else:
@@ -126,11 +128,16 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
     fps = vid.get(cv2.CAP_PROP_FPS)
     total_Frames = vid.get(cv2.CAP_PROP_FRAME_COUNT); print(total_Frames)
     
-    inputResH = 320
-    inputResW = 256
-    outputResH = 80
-    outputResW = 64
+    inputResH = int(320/img_factor)
+    inputResW = int(256/img_factor)
+    outputResH = int(80/img_factor)
+    outputResW = int(64/img_factor)
     results = []
+    
+    detector.conf = conf
+    detector.iou = iou
+    print('det conf is {}'.format(detector.conf))
+    print('det iou is {}'.format(detector.iou))
     
     runtime_profile = {
         'detection_time': [],
@@ -155,24 +162,26 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
         if (all_frames in total_range) == True:
             t_start = time.time()
             #ret, frame = vid.read()
-            to_plot = frame.copy()
+            #to_plot = frame.copy()
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             
-            start_time = getTime()
+            start_time = getTime();
             #### get detections and plot
-            xyxy = detector(frame, size=320).xyxy
-            if len(xyxy[0] > 0):
-                for d in xyxy[0]:
-                    cv2.rectangle(to_plot, (int(d[0]), int(d[1])), (int(d[2]), int(d[3])), 
-                                  (255,0,0), 2)
+            #xyxy = detector(frame, size=320).xyxy
+            #xyxy = detector(frame, size=640).xyxy
+            xyxy = detector(frame, size=size_value, augment=False).xyxy; #print(all_frames, len(xyxy[0]))
+            #if len(xyxy[0] > 0):
+            #    for d in xyxy[0]:
+            #        cv2.rectangle(to_plot, (int(d[0]), int(d[1])), (int(d[2]), int(d[3])), 
+            #                      (255,0,0), 2)
                                                                    
             inp = PredictionUtils.im_to_torch(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             inps = torch.zeros(xyxy[0].size(0), 3, inputResH, inputResW)
             pt1 = torch.zeros(xyxy[0].size(0), 2)
             pt2 = torch.zeros(xyxy[0].size(0), 2)
-            boxes = torch.from_numpy(np.array([i[0:4].tolist() for i in xyxy[0]]))
+            boxes = torch.from_numpy(np.array([i[0:4].tolist() for i in xyxy[0]])); #print('boxes is {}'.format(boxes.shape)) 
             scores = [float(ii[4]) for ii in xyxy[0]]  ## ii[4] x1, y1, x2, y2, score, class; class = ....
-            im_name = 'frame_{}'.format(all_frames)           
+            im_name = 'frame_{}'.format(all_frames)
             
             #### get pose estimates if detection was successful, and plot
             if boxes.shape[0] > 0:
@@ -182,25 +191,31 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
                 inps, pt1, pt2 = PredictionUtils.crop_from_dets(inp, boxes, inps, pt1, pt2, inputResH, inputResW)
                 
                 if torch.cuda.is_available():
-                    inps = inps.cuda()
-                    
+                    #inps = inps.cuda()
+                    inps = inps.to('cuda')
+                
                 with torch.no_grad():
-                    hm = estimator(inps)
+                    hm = estimator(inps);
                     
+
+                
                 preds_hm, preds_img, preds_scores = PredictionUtils.getPrediction(hm.cpu(), pt1, pt2, 
                                                                                   inputResH, inputResW, 
                                                                                   outputResH, outputResW, nClasses);
                 
+                #print(preds_img)
                 
                 ckpt_time, pose_time = getTime(ckpt_time)
                 runtime_profile['pose_estimation_time'].append(pose_time)
                 
-                for rr in preds_img: 
-                    rr = rr.tolist()
-                    for jj in rr:
-                        cv2.circle(to_plot, (int(jj[0]), int(jj[1])), 5, (255, 0, 255), -1)            
-                           
+                #for rr in preds_img: 
+                #    rr = rr.tolist()
+                #    for jj in rr:
+                #        cv2.circle(to_plot, (int(jj[0]), int(jj[1])), 5, (255, 0, 255), -1)            
+
                 result = PredictionUtils.pose_nms(boxes, torch.from_numpy(np.array(scores)), preds_img, preds_scores)
+
+
                 if len(result) == 0:
                     results.append({'imgname': im_name,
                                 'result': [], 
@@ -256,10 +271,10 @@ def predict(video_path, nClasses, experiment_name='', start=0, end=10000000, det
     vid.release()
     cv2.destroyAllWindows()
     
-    return results, runtime_profile
+    return results, runtime_profile, hm
     
     
-def track(results, num_obj, experiment_name='', save=False):
+def track(results, num_obj, experiment_name='', save=False, savepath=''):
 
     ''' Perform tracking across frames on predicted pose estimates 
     
@@ -456,14 +471,57 @@ def track(results, num_obj, experiment_name='', save=False):
     #tracks = collections.OrderedDict(sorted(tracks.items()))
     
     if save:
-        if experiment_name:
-            full_save_path = os.path.join(experiment_name)
-            save_path = os.path.join(experiment_name, 'Results', 'tracked.json')
-            with open(save_path, 'w') as json_file:
-                json_file.write(json.dumps(tracks, indent=4))
+        #if experiment_name:
+        #    full_save_path = os.path.join(experiment_name)
+        #    save_path = os.path.join(experiment_name, 'Results', 'tracked.json')
+        #    with open(save_path, 'w') as json_file:
+        #        json_file.write(json.dumps(tracks, indent=4))
+                
+        #else:
+        #    print("Nothing was saveed, must provide a value for 'experiment_name'!")
+        import numpy
+        import json
+        from json import JSONEncoder
+        class NumpyArrayEncoder(JSONEncoder):
+            def default(self, obj):
+                if isinstance(obj, numpy.ndarray):
+                    return obj.tolist()
+                return JSONEncoder.default(self, obj)
+                
+        if savepath:
+            if os.path.exists(savepath):
+                print('Filepath exists, try a new name!')
+            else:
+                with open(savepath, 'w') as f:
+                    json.dump(tracks, f, cls=NumpyArrayEncoder, indent=4)
                 
         else:
-            print("Nothing was saveed, must provide a value for 'experiment_name'!")
+            
+            i = 0
+            path_to_save = os.path.join(experiment_name, 'Results', 'tracked_{}.json'.format(i) )
+            while os.path.exists(path_to_save):
+                i += 1
+                path_to_save = os.path.join(experiment_name, 'Results', 'tracked_{}.json'.format(i) )
+            else:
+                with open(path_to_save, 'w') as f:
+                    json.dump(tracks, f, cls=NumpyArrayEncoder, indent=4)
+                print('saved')
+                
         
     
     return tracks, no_det_frames
+    
+    
+    
+    
+    
+def predict_and_track(video_path, nClasses, num_obj, experiment_name='', detector_input='', estimator_input='', best_or_last='best',
+                      conf=0.05, iou=0.6, size_value=640, img_factor=1, start=0, end=10000000, save=True):
+
+    results, runtime, hm = predict(video_path, nClasses, experiment_name, size_value=size_value, img_factor=img_factor, 
+                                   conf=conf, iou=iou, start=start, end=end, detector_input=detector_input, estimator_input=estimator_input,
+                                   best_or_last=best_or_last)
+            
+    tracked, no_dets = track(results, num_obj, save=save, experiment_name = experiment_name)
+    
+    return tracked, no_dets
