@@ -26,7 +26,7 @@ from alphatracker2.inference import Stream
 
 # sequential
 from alphatracker2.Label import get_frames
-from alphatracker2.Label import open_label
+#from alphatracker2.Label import open_label
 
 from alphatracker2.Experiment import create_experiment
 
