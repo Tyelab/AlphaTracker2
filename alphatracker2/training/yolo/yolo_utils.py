@@ -123,7 +123,7 @@ def make_directory(image_dir, json_dir, new_image_dir, num_poses, num_animals, t
             txt_files.append(os.path.join(new_image_dir, file))
    
     random.shuffle(file_rec)
-    img_rec = [os.path.splitext(i)[0]+'.jpg' for i in file_rec]
+    img_rec = [os.path.splitext(i)[0]+'.'+extension for i in file_rec]
 
     #file_rec_ = [os.path.join(new_image_dir, f) for f in file_rec]
     #img_rec_ = [os.path.join(new_image_dir, f) for f in img_rec]
