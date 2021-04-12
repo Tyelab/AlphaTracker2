@@ -55,7 +55,7 @@ def convert(image_filepaths, json_filepaths, save_path, extension):
         json.dump(comb_pop, outfile, indent=4)
         
         
-def make_directory(image_dir, json_dir, new_image_dir, num_poses, num_animals, train_test_split, extension='jpg'):
+def make_directory(image_dir, json_dir, new_image_dir, num_poses, num_animals, train_test_split, extension):
     convert(image_dir, json_dir, new_image_dir, extension)
     
     with open(os.path.join(new_image_dir, 'ATjson.json'), 'r') as f:

@@ -72,7 +72,7 @@ def make_settings(full_exp_path, image_root_list, json_file_path, num_mouse, num
         f.write("{}\n".format(train_val_split))
 		
 		
-def create_experiment(save_location, experiment_name, image_filepaths, json_filepaths, num_obj, num_parts, split, extension='jpg'):
+def create_experiment(save_location, experiment_name, image_filepaths, json_filepaths, num_obj, num_parts, split, extension):
     full_save_path = os.path.join(save_location, experiment_name)
     if os.path.exists(full_save_path):
         #update_directory()
@@ -86,7 +86,7 @@ def create_experiment(save_location, experiment_name, image_filepaths, json_file
         yolo_utils.make_directory(image_filepaths, json_filepaths, save_dir, num_parts, num_obj, split, extension)
         make_yaml(full_save_path)
         make_settings(full_save_path, image_filepaths, json_filepaths, num_obj, num_parts, experiment_name, split)
-        generate_pose_train(full_save_path, image_filepaths, json_filepaths, [num_obj], num_parts, split, 'jpg')
+        generate_pose_train(full_save_path, image_filepaths, json_filepaths, [num_obj], num_parts, split, extension)
         #yolo_utils.make_yaml()
         
         print('Image directory has been created here: {}'.format(os.path.join(full_save_path, 'TrainImagesAndLabels')))
