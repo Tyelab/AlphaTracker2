@@ -71,7 +71,7 @@ def make_directory(image_dir, json_dir, new_image_dir, num_poses, num_animals, t
         img_x = img.shape[1]
 	    
         idd = i['annotations']
-        where_face = np.where(np.array([i['class'] for i in idd]) == 'Face')[0]
+        where_face = np.where(np.array([i['class'] for i in idd]) == 'Face' or np.array([i['class'] for i in idd]) == 'boundingBox')[0]
         if len(where_face) != num_animals:
             print("image {} has faulty labels".format(filename))
             continue
