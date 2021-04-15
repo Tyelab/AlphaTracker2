@@ -110,7 +110,7 @@ def show_tracked(tracked_, vidpath, experiment_name, start=0, end=100000, save=F
                 id_ = rr[jj]['new_pid']
                 for ccc, bp in enumerate(box_position):
                     if max_pid_id_setting == 1:
-                        cv2.circle(img, (int(bp[0]), int(bp[1])), marker_size, cols1[ccc], -1)
+                        cv2.circle(img, (int(bp[0]), int(bp[1])), marker_size, cols[id_], -1) # should be id_
                     else:
                         cv2.circle(img, (int(bp[0]), int(bp[1])), marker_size, cols[id_], -1) # should be cols[id_]
                     
