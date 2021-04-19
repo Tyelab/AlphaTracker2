@@ -163,6 +163,12 @@ def main(full_exp_path, weights_save_path, model_type='mobilenet', epochs=300, b
     
     if model_type=='senet_101':
         print('using pretrained')
+        senet_state_dict = torch.hub.load_state_dict_from_url('https://storage.googleapis.com/at2_pretrained_models/duc_se.pkl', 
+                                                              map_location=torch.device('cpu'))
+        
+        m.load_state_dict(senet_state_dict)
+        if torch.cuda.is_available():
+            m = m.cuda()
         #if opt.loadModel:
         #    print('Loading Model from {}'.format(opt.loadModel))
         #    current_model_weight = m.state_dict()
