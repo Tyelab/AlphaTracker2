@@ -30,36 +30,6 @@ if opt.sync:
 else:
     DataParallel = torch.nn.DataParallel
 
-#opt.nThreads = 6
-#opt.loadModel = '/home/npadilla/Documents/Aneesh/test_test/duc_se.pth'
-opt.loadModel = r'C:\Users\hali\Desktop\alphasave\duc_se.pth'
-#opt.trainBatch = 10
-#opt.validBatch=32
-#opt.LR = 1e-4   
-#opt.nClasses = 4
-
-
-#opt.img_folder_train = '/home/npadilla/Documents/Aneesh/test_test/color'
-#opt.img_folder_val = '/home/npadilla/Documents/Aneesh/test_test/color'
-#opt.annot_file_train = '/home/npadilla/Documents/Aneesh/test_test/data_newLabeled_01_train.h5'
-#opt.annot_file_val = '/home/npadilla/Documents/Aneesh/test_test/data_newLabeled_01_val.h5'
-
-
-#opt.img_folder_train = r'C:\Users\AneeshBal\Desktop\demo'
-
-#opt.img_folder_train = '/home/npadilla/Documents/Aneesh/test_test/browtf2'
-#opt.img_folder_val = '/home/npadilla/Documents/Aneesh/test_test/browtf2'
-#opt.annot_file_train = '/home/npadilla/Documents/Aneesh/test_test/train.h5'
-#opt.annot_file_val = '/home/npadilla/Documents/Aneesh/test_test/val.h5'
-
-
-#opt.annot_file_train = '/home/npadilla/Documents/Aneesh/test_test/test_root3/sppe/data/test1/data_newLabeled_01_train.h5'
-#opt.annot_file_val = '/home/npadilla/Documents/Aneesh/test_test/test_root3/sppe/data/test1/data_newLabeled_01_val.h5'
-#opt.img_folder_train = '/home/npadilla/Documents/Aneesh/test_test/test_root3/darknet/data/test1/color/'
-#opt.img_folder_val = '/home/npadilla/Documents/Aneesh/test_test/test_root3/darknet/data/test1/color/'
-
-#print(opt.annot_file_train)
-#print(opt.annot_file_val)
 
 def train(train_loader, m, criterion, optimizer, writer):
     lossLogger = DataLogger()
