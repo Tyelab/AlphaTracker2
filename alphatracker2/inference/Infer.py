@@ -158,6 +158,12 @@ def predict(video_path, nClasses, experiment_name='', size_value=640, img_factor
     # start reading video 
     for all_frames in tqdm(range(0, int(end_range))):
         ret, frame = vid.read()
+        if ret == False:
+            im_name = 'frame_{}'.format(all_frames)
+            results.append({'imgname': im_name,
+                            'result': [], 
+                            'boxes': []})
+            continue
         
         if (all_frames in total_range) == True:
             t_start = time.time()
