@@ -16,7 +16,7 @@ import json
 #                 marker_size=15, line_size=3, playback_speed=10, skeleton=False):
 
 def show_tracked(tracked_, vidpath, experiment_name, start=0, end=100000, save=False, savepath='', fps=20, size=(480,320), 
-                 marker_size=15, line_size=3, playback_speed=10, skeleton=False):
+                 marker_size=15, line_size=3, playback_speed=10, skeleton=False, showIt=True):
 
     """Takes tracked outputs and displays them in video format
 
@@ -136,8 +136,9 @@ def show_tracked(tracked_, vidpath, experiment_name, start=0, end=100000, save=F
                 fontColor,
                 lineType)
         img = cv2.resize(img, size)
-        cv2.imshow("frame", img)
-        cv2.waitKey(playback_speed)
+        if showIt:
+          cv2.imshow("frame", img)
+          cv2.waitKey(playback_speed)s
         
         if save:
             # choose codec according to format needed
