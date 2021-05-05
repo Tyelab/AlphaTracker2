@@ -166,7 +166,17 @@ def main(full_exp_path, weights_save_path, model_type='mobilenet', epochs=300, b
         senet_state_dict = torch.hub.load_state_dict_from_url('https://storage.googleapis.com/at2_pretrained_models/duc_se.pkl', 
                                                               map_location=torch.device('cpu'))
         
-        m.load_state_dict(senet_state_dict)
+        
+        current_model_weight = m.state_dict()
+        weight_save = torch.load(senet_state_dict, map_location=torch.device('cpu'))
+        weight_save_changed = {}
+        for k in weight_save:
+            if 'conv_out.weight' in k or 'conv_out.bias' in k:
+                continue
+            weight_save_changed[k]= weight_save[k]
+        current_model_weight.update(weight_save_changed)
+        m.load_state_dict(current_model_weight)
+        
         if torch.cuda.is_available():
             m = m.cuda()
         #if opt.loadModel:
