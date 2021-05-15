@@ -138,7 +138,7 @@ def show_tracked(tracked_, vidpath, experiment_name, start=0, end=100000, save=F
         img = cv2.resize(img, size)
         if showIt:
           cv2.imshow("frame", img)
-          cv2.waitKey(playback_speed)s
+          cv2.waitKey(playback_speed)
         
         if save:
             # choose codec according to format needed
