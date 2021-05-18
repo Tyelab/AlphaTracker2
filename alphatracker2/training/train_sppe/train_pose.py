@@ -168,7 +168,8 @@ def main(full_exp_path, weights_save_path, model_type='mobilenet', epochs=300, b
         
         
         current_model_weight = m.state_dict()
-        weight_save = torch.load(senet_state_dict, map_location=torch.device('cpu'))
+        #weight_save = torch.load(senet_state_dict, map_location=torch.device('cpu'))
+        weight_save = senet_state_dict
         weight_save_changed = {}
         for k in weight_save:
             if 'conv_out.weight' in k or 'conv_out.bias' in k:
