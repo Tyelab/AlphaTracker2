@@ -50,7 +50,7 @@ Please follow instructions to download the original Demo dataset from the Alphat
 
 `json_filepaths = [r'C:\Users\hali\Desktop\alphasave\single_line\multi_person.json'] # enter a list of the location of your json files`
 
-`num_obj = 1 # number of animals..keep this an integer!`
+`num_obj = 2 # number of animals..keep this an integer! (there are 2 mice in the demo training data)`
 
 `num_parts = 4 # number of poses`
 
