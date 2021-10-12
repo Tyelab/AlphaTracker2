@@ -56,7 +56,9 @@ Please follow instructions to download the original Demo dataset from the Alphat
 
 `split = 0.9 # train/validation split`
 
-`at2.create_experiment(save_loc, exp_name, image_filepaths, json_filepaths, num_obj, num_parts, split) # a new folder should be created inside save_loc with your experiment name
+`extension = 'jpg'` # this should match the type of image found in your image_filepaths folder, e.g., 'jpg' or 'png'
+
+`at2.create_experiment(save_loc, exp_name, image_filepaths, json_filepaths, num_obj, num_parts, split, extension) # a new folder should be created inside save_loc with your experiment name
  `
 
 
