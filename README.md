@@ -30,6 +30,7 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
 #### 1. To begin, use the Demo dataset with the images and labeled json file for the sake of demonstration.
 Please follow instructions to download the original Demo dataset from the Alphatracker 1.0 repository:    
    https://github.com/ZexinChen/AlphaTracker/blob/main/Manual/Tracking.md#demo-data-for-training
+   The location where you save this data is what you will use for variables `image_filepaths` and `json_filepaths` in step 4 below.
    
 *Very important!* If you are on a Windows machine, open Anaconda prompt as administrator, or it won't work!!
 
