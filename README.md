@@ -5,8 +5,9 @@
 To start, `cd` into the `AlphaTracker2` folder. For now, the installation process will be a bit disjointed, but will be easier when it is on PyPi. 
 
 #### 1. Type `conda env create -f environment.yml`
-##### 2. Type `pip install .`
-#### 3. See below:
+#### 2. Type `conda activate alphatracker-test2`
+##### 3. Type `pip install . --use-feature=in-tree-build`
+#### 4. See below:
 
    If on Linux or Windows AND have GPU: `conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.1 -c pytorch`
    
@@ -14,7 +15,7 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
    
    If on CPU machine only: `conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cpuonly -c pytorch`
    
-#### 4. If no errors, yay! It is installed. Now, `cd` into a random directory that is not anywhere near the `AlphaTracker2` repo, and then do the following:
+#### 5. If no errors, yay! It is installed. Now, `cd` into a random directory that is not anywhere near the `AlphaTracker2` repo, and then do the following:
    
    `python`
    
