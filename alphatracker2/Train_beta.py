@@ -57,8 +57,9 @@ from .training.train_sppe import train_pose
 
 from collections import OrderedDict
 
-def train_object_detector(full_exp_path, model_type='yolov5s', epochs=80, batch_size=16):
-    opt = opt_args.opt
+def train_object_detector(full_exp_path, model_type='yolov5s', epochs=80, batch_size=16,numWorkers=8):  # add numWorkers=0 here
+    opt = opt_args.opt 
+    opt.workers = numWorkers 
     opt.adam = True
     opt.project = os.path.join(full_exp_path, 'Weights', 'ObjectDetector')
     opt.data = os.path.join(full_exp_path, 'data.yaml')

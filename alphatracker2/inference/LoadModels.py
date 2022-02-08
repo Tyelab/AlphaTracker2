@@ -74,7 +74,8 @@ def object_detector(trained):
     
     #with open(os.devnull, 'w') as devnull:
     #    with contextlib.redirect_stdout(devnull):
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path_or_model=trained, verbose=False)
+    # model = torch.hub.load('ultralytics/yolov5:v5.0', 'custom', force_reload=True, path_or_model=trained, verbose=False)
+    model = torch.hub.load('ultralytics/yolov5:v5.0', 'custom', path_or_model=trained, verbose=False)
     
     if torch.cuda.is_available():
         model = model.cuda()
