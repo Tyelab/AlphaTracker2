@@ -28,9 +28,21 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
 ## Basic Usage
 
 #### 1. To begin, use the Demo dataset with the images and labeled json file for the sake of demonstration.
-Please follow instructions to download the original Demo dataset from the Alphatracker 1.0 repository:    
-   https://github.com/ZexinChen/AlphaTracker/blob/main/Manual/Tracking.md#demo-data-for-training
-   The location where you save this data is what you will use for variables `image_filepaths` and `json_filepaths` in step 4 below.
+Please follow instructions to download the original Demo dataset from the Alphatracker 1.0 repository by clicking on the links and saving as directed:
+
+Download the full set of 600 images and labels for 2 mice with 4 body parts each:
+
+https://drive.google.com/file/d/15dR-vVCEsg2z7mEVzJOF9YDW6YioEU3N'
+
+Save the file to 'sample_annotated_data.zip'
+Extract all to the folder `sample_annotated_data\`; it should contain a directory called `\train9`.  The path where you have saved this data is used for `image_filepaths`  and `json_filepaths` in step 4 below.
+
+Download the sample 3 min video for tracking on 2 mice:
+
+https://drive.google.com/file/d/1N0JjazqW6JmBheLrn6RoDTSRXSPp1t4K
+
+Save the file to `sample_annotated_data\demo.mp4`.  The path where you save this data will be used below in step 6, `vidpath`.
+
    
 *Very important!* If you are on a Windows machine, open Anaconda prompt as administrator, or it won't work!!
 
@@ -46,9 +58,9 @@ Please follow instructions to download the original Demo dataset from the Alphat
 
 `import os; expname = os.path.join(save_loc, exp_name) # just to make it easier`
 
-`image_filepaths = [r'C:\Users\hali\Desktop\alphasave\single_line'] # enter a list of the location of your image directory`
+`image_filepaths = [r'C:\Users\hali\Desktop\alphasave\sample_annotated_data\train9\'] # enter a list of the location of your image directory`
 
-`json_filepaths = [r'C:\Users\hali\Desktop\alphasave\single_line\multi_person.json'] # enter a list of the location of your json files`
+`json_filepaths = [r'C:\Users\hali\Desktop\alphasave\sample_annotated_data\train9\train9.json'] # enter a list of the location of your json files`
 
 `num_obj = 2 # number of animals..keep this an integer! (there are 2 mice in the demo training data)`
 
@@ -72,7 +84,7 @@ Train object detector: `at2.train_object_detector(expname, model_type='yolov5s',
 
 ##### 6. Inference/Tracking:
 
-`vidpath = 'path/to/video.mp4'`
+`vidpath = 'path/to/demo.mp4'`
 
 `results, runtime = at2.predict(vidpath, num_parts, experiment_name=expname)` 
 
