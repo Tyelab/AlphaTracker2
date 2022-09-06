@@ -1,10 +1,10 @@
 # AlphaTracker2
 
 ## First Steps
-We recommend using a conda environment.  Miniconda is a lightweight version of conda and we recommend using this one.  If you do not yet have a version of conda set up on your machine, please go here to find the latest installer for Miniconda3: https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links
+We recommend running AlphaTracker2 from within a conda environment. This lets you keep all your installed libraries and programs separate.  Miniconda is a lightweight version of conda and we recommend using this one.  If you do not yet have a version of conda set up on your machine, please go here to find the latest installer for Miniconda3: https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links
 Follow the installation instructions on the page to install Miniconda3.  
 
-If you already have conda installed, please verify that it is version 3.0 or higher.  If your version of conda is 2.x, please install version 3 as directed above.
+If you already have conda installed, please verify that it is version 3.0 or higher: `conda --version`.  If your version of conda is 2.x, please install version 3 as directed above.
 
 ## Basic Setup
 To start, `cd` into the `AlphaTracker2` folder. For now, the installation process will be a bit disjointed, but will be easier when it is on PyPi. 
