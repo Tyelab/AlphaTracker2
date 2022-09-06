@@ -6,16 +6,24 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
 
 #### 1. Type `conda env create -f environment.yml`
 #### 2. Type `conda activate alphatracker-test2`
-##### 3. Type `pip install . --use-feature=in-tree-build`
-#### 4. See below:
+##### 3. Type `pip install .`
+##### 4. If you have a GPU on your machine, check your cuda version:
 
-   If on Linux or Windows AND have GPU: `conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.1 -c pytorch`
+   On Linux:  type `nvidia-smi` at the command prompt. 
+
+   On Windows:  type `nvidia-smi.exe` in the Anaconda cmd window.  
    
-   If on macOS: `conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 -c pytorch`
+   At the top of the print out, there should be a CUDA Version.  If your cuda version is less than 11.6, please head to https://pytorch.org/ to get the correct command for the step 5 below.  
+
+#### 5. Install Pytorch.  You can try letting 
+
+   If on Linux or Windows AND have GPU: `conda install pytorch torchvision torchaudio cudatoolkit=11.6 -c pytorch -c conda-forge`
    
-   If on CPU machine only: `conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cpuonly -c pytorch`
+   If on macOS: `conda install pytorch torchvision torchaudio -c pytorch`
    
-#### 5. If no errors, yay! It is installed. Now, `cd` into a random directory that is not anywhere near the `AlphaTracker2` repo, and then do the following:
+   If on CPU machine only: `conda install pytorch torchvision torchaudio cpuonly -c pytorch`
+   
+#### 6. If no errors, yay! It is installed. Now, `cd` into a random directory that is not anywhere near the `AlphaTracker2` repo, and then do the following:
    
    `python`
    
