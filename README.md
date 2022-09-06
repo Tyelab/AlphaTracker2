@@ -6,7 +6,7 @@ Follow the installation instructions on the page to install Miniconda3.
 
 If you already have conda installed, please verify that it is version 3.0 or higher: `conda --version`.  If your version of conda is 2.x, please install version 3 as directed above.
 
-## Basic Setup
+## Installing AlphaTracker2
 To start, `cd` into the `AlphaTracker2` folder. For now, the installation process will be a bit disjointed, but will be easier when it is on PyPi. 
 
 #### 1. Type `conda env create -f environment.yml`
