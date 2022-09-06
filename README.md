@@ -1,5 +1,9 @@
 # AlphaTracker2
 
+## First Steps
+We recommend using a conda environment.  If you do not have conda set up on your machine, please go here to find the latest installer for Miniconda3: https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links
+
+Follow the installation instructions on the page to install Miniconda3.
 
 ## Basic Setup
 To start, `cd` into the `AlphaTracker2` folder. For now, the installation process will be a bit disjointed, but will be easier when it is on PyPi. 
