@@ -18,7 +18,7 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
 
    On Windows:  type `nvidia-smi.exe` in the Anaconda cmd window.  
    
-   At the top of the print out, there should be a CUDA Version.  If your cuda version is less than 11.6, please head to https://pytorch.org/ to get the correct command for the step 5 below.  
+   At the top of the print out, there should be a CUDA Version.  If your cuda version is less than 10.2, please head to https://pytorch.org/ to get the correct command for the step 5 below.  
 
 #### 5. Install Pytorch.  You can try letting 
 
