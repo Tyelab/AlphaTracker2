@@ -38,10 +38,10 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
    
    
 
-## Basic Usage
+## Download sample data
 
-#### 1. To begin, use the Demo dataset with the images and labeled json file for the sake of demonstration.
-Please follow instructions to download the original Demo dataset from the Alphatracker 1.0 repository by clicking on the links and saving as directed:
+#### If this is your first time running AlphaTracker2, please use the Demo dataset with the images and labeled json file for the sake of demonstration.  This will help troubleshoot if there were any errors in your installation.
+Please follow instructions to download our sample data by clicking on the links and saving as directed:
 
 Download the full set of 600 images and labels for 2 mice with 4 body parts each:
 
@@ -56,14 +56,17 @@ https://drive.google.com/file/d/1N0JjazqW6JmBheLrn6RoDTSRXSPp1t4K
 
 Save the file to `sample_annotated_data\demo.mp4`.  The path where you save this data will be used below in step 6, `vidpath`.
 
-   
-*Very important!* If you are on a Windows machine, open Anaconda prompt as administrator, or it won't work!!
+## Running AlphaTracker2
 
-#### 2. `python`
+
+*Very important!* If you are on a Windows machine, open Anaconda prompt as administrator, or it won't work!!  
+#### 1. Open a terminal/power shell or command window.  Type `conda activate alphatracker2`
+
+#### 2. `python` 
 
 #### 3. `import alphatracker2 as at2`
 
-#### 4. Define your experiment variables:
+#### 4. Define your experiment variables.  In this example, the Windows user is named 'hali'.  You should replace these paths to the proper folders on your machine.
 
 `save_loc = r'C:\Users\hali\Desktop\alphasave' # directory where experiment will be saved...ensure this directory exists!`
 
