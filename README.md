@@ -22,7 +22,7 @@ To start, `cd` into the `AlphaTracker2` folder. For now, the installation proces
 
 #### 5. Install Pytorch.  You can try letting 
 
-   If on Linux or Windows AND have GPU: `conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch`
+   If on Linux or Windows AND have GPU: `conda install pytorch torchvision torchaudio cudatoolkit=11.6 -c pytorch -c conda-forge`
    
    If on macOS: `conda install pytorch torchvision torchaudio -c pytorch`
    
